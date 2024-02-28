@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <title>BRPKALIKITAGADUH</title>
+
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="CSS/main.css">
+            <link rel="stylesheet" href="CSS/index.css">
+        </head>
+        <body>
+            <h1 id = "site-title">Berapa Kali Dah Kita Gaduh? See Bawah</h1>
+            <h1 id = "fight-counter-text">0</h1>
+            <div id = "btn-container">
+                <button id="fight-button">Gaduh 🥺</button>
+                <button id="dev-button">For Syazanie</button>
+            </div>
+            <!-- <h2 id = "histories-title">Histories</h2>
+            <table id = "history-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>5 January, 2024</td>
+                </tr>
+            </table> -->
+
+            <script type="module">
+                // Import the functions you need from the SDKs you need
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+              
+                // Your web app's Firebase configuration
+                const firebaseConfig = {
+                  apiKey: "AIzaSyDC9J0avX6NfJXAdqZVVnsZqEB80phxCGE",
+                  authDomain: "brpkalikitagaduh.firebaseapp.com",
+                  databaseURL: "https://brpkalikitagaduh-default-rtdb.asia-southeast1.firebasedatabase.app/",
+                  projectId: "brpkalikitagaduh",
+                  storageBucket: "brpkalikitagaduh.appspot.com",
+                  messagingSenderId: "109032642729",
+                  appId: "1:109032642729:web:9764a4d42562fb0cf631b8"
+                };
+              
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+
+                // Read counter from Firebase and increment it. If null, not found or zero, it'd be zero.
+                import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+                const db = getDatabase();
+
+                // Change to numeric
+                let fightCounter = document.getElementById("fight-counter-text");
+                // let IDofDate = 0;
+                // let dateToday = getDate();
+
+                let devButton = document.getElementById("dev-button");
+
+                function addData() {
+                    // Counter
+                    let fightCounterNumber = parseInt(fightCounter.textContent);
+                    set(ref(db, 'counter/'), {
+                        counter: fightCounterNumber
+                    }).then(() => {
+                        console.log('Data saved');
+                    }).catch((error) => {
+                        console.error('Error: ', error);
+                    });
+
+                    // IDofDate++;
+
+                    // // Date
+                    // set(ref(db, 'date/'), {
+                    //     date: {dateID: IDofDate, dateToday}
+                    // }).then(() => {
+                    //     console.log('Data saved');
+                    // }).catch((error) => {
+                    //     console.error('Error: ', error);
+                    // });
+                }
+
+                function refData() {
+                    // Counter
+                    const dbRef = ref(db);
+                    get(child(dbRef, 'counter/')).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            fightCounter.textContent = snapshot.val().counter;
+                        } else {
+                            console.log("No data available");
+                        }
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+
+                    // Date
+                    // get(child(dbRef, 'date/')).then((snapshot) => {
+                    //     if (snapshot.exists()) {
+                    //         const data = snapshot.val();
+                    //         for (const dateId in data) {
+                    //             addTable(data[dateId].date, data[dateId].dateID);
+                    //         }
+                    //     } else {
+                    //         console.log("No data available");
+                    //     }
+                    // }).catch((error) => {
+                    //     console.error(error);
+                    // });
+                }
+
+                function delData() {
+                    remove(ref(db, 'counter/'), {
+                    }) .then(() => {
+                        console.log('Data deleted');
+                    }) .catch((error) => {
+                        console.error('Error: ', error);
+                    }) .catch((error) => {
+                        console.error('Error: ', error);
+                    });
+                }
+
+                function updateData(val) {
+                    update(ref(db, 'counter/'), {
+                        counter: val
+                    }).then(() => {
+                        console.log('Data updated');
+                    }).catch((error) => {
+                        console.error('Error: ', error);
+                    });
+                }
+
+                refData();
+
+                devButton.addEventListener("click", function() {
+                    let userInput = prompt("Code: ");
+
+                    if (userInput === "del") {
+                        delData();
+                    }
+
+                    if (userInput === "up") {
+                        let val = parseInt(prompt("Value: "));
+                        updateData(val);
+                    }
+                });
+
+                // Increment counter
+                document.getElementById("fight-button").addEventListener("click", function() {
+                    let fightCounterNumber = parseInt(fightCounter.textContent);
+                    fightCounterNumber++;
+                    document.getElementById("fight-counter-text").textContent = fightCounterNumber;
+                    addData();
+                    // addTable();
+                });
+
+                /*function getDate() {
+                    let today = new Date();
+                    let dd = String(today.getDate()).padStart(2, '0');
+                    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    let yyyy = today.getFullYear();
+
+                    today = dd + '/' + mm + '/' + yyyy;
+                    return today;
+                }
+
+                // Add table row with date and ID
+                function addTable(id, date) {
+                let table = document.getElementById("history-table");
+                let row = table.insertRow(-1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                cell1.innerHTML = id;
+                cell2.innerHTML = date;
+            }
+*/
+
+              </script>
+        </body>
+
+    </html>

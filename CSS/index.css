@@ -1,0 +1,53 @@
+#fight-counter-text {
+  font-size: 10em;
+  margin: 0 auto;
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #ffff5f, rgb(0, 119, 255)); /* Adjust colors as per your preference */
+}
+
+#btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 100px;
+}
+#btn-container #fight-button {
+  width: 70%;
+  height: 100%;
+  max-width: 800px;
+  border: none;
+  border-radius: 20em;
+  background-color: rgb(101, 201, 255);
+  padding: 1em;
+  color: rgb(0, 99, 152);
+  font-size: large;
+  font-weight: bold;
+  font-family: "Quicksand", sans-serif;
+  transition: 0.2s;
+}
+#btn-container #fight-button:active {
+  opacity: 0.7;
+  transform: scale(0.8);
+}
+#btn-container #dev-button {
+  width: 50%;
+  height: 70%;
+  max-width: 500px;
+  border: none;
+  border-radius: 20em;
+  background-color: rgb(101, 201, 255);
+  padding: 1em;
+  color: rgb(0, 99, 152);
+  font-size: large;
+  font-weight: bold;
+  font-family: "Quicksand", sans-serif;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+#btn-container #dev-button:active {
+  opacity: 0.4;
+  transform: scale(0.8);
+}

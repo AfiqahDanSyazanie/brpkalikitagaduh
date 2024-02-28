@@ -1,0 +1,16 @@
+h1, h2 {
+  text-align: center;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  align-items: center;
+  margin: 0 auto;
+  height: 100vh;
+  font-family: "Quicksand", sans-serif;
+  color: #f7f7f7;
+  max-width: 1200px;
+  background-color: #1f1f1f;
+}
